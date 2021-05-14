@@ -25,6 +25,7 @@ pub fn run_capturing_stdout(cmd: &mut Command) -> anyhow::Result<String> {
     match output.status.success() {
         true => Ok(str::from_utf8(&output.stdout)?.to_string()),
         false => {
+            dbg!(&output);
             eprintln!("{}", str::from_utf8(&output.stderr)?.dimmed());
             Err(anyhow!("Error (see above)"))
         }
